@@ -8,7 +8,9 @@ import {
   Param,
   Patch,
   Post,
+  Query
 } from '@nestjs/common';
+import { PaginationQueryDto } from 'src/common/paganation-query.dto';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -17,25 +19,25 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 export class CoffeesController {
   constructor(private readonly coffeeService: CoffeesService) {}
   @Get()
-  findAll() {
-    return this.coffeeService.findAll();
+  findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    return this.coffeeService.findAll(paginationQueryDto);
   }
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.coffeeService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.coffeeService.findOne(id);
   }
   @Post()
-  create(@Body() body: CreateCoffeeDto) {
+  async create(@Body() body: CreateCoffeeDto) {
     return this.coffeeService.create(body);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: UpdateCoffeeDto) {
-    return this.coffeeService.update(id, body);
+  async update(@Param('id') id: string, @Body() body: UpdateCoffeeDto) {
+    return await this.coffeeService.update(id, body);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.coffeeService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.coffeeService.remove(id);
   }
 }
