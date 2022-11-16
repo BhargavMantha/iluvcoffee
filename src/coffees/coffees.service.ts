@@ -20,7 +20,14 @@ export class CoffeesService {
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) coffeeBrands: string[],
     private readonly configService: ConfigService
-  ) {}
+  ) {
+    /**
+     * For testing purpose only
+     */
+    const databaseHost = this.configService.get('DATABASE_HOST', 'localhost');
+    const coffeeConfig = this.configService.get('coffee');
+    console.log(databaseHost, coffeeConfig);
+  }
 
   findAll(paginationQueryDto: PaginationQueryDto) {
     const { limit, offset } = paginationQueryDto;
