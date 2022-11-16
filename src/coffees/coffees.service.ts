@@ -25,7 +25,7 @@ export class CoffeesService {
      * For testing purpose only
      */
     const databaseHost = this.configService.get('DATABASE_HOST', 'localhost');
-    const coffeeConfig = this.configService.get('coffee');
+    const coffeeConfig = this.configService.get('coffees');
     console.log(databaseHost, coffeeConfig);
   }
 
